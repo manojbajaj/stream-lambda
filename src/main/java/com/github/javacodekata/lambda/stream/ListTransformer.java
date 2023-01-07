@@ -48,19 +48,14 @@ public class ListTransformer {
     public List<Integer> getSortedIntegers() {
         return values.stream()
                 .filter(value -> isInteger(value))
-                .map(value -> Integer.valueOf(value))
+                .map(Integer::valueOf)
                 .sorted()
                 .collect(Collectors.toList());
     }
 
     private boolean isInteger(String value) {
-        final int sz = value.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isDigit(value.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return value.chars()
+                .allMatch(i -> Character.isDigit(i));
     }
 
     /**
@@ -76,7 +71,7 @@ public class ListTransformer {
     public List<Integer> getSortedDescendingIntegers() {
         return values.stream()
                 .filter(value -> isInteger(value))
-                .map(value -> Integer.valueOf(value))
+                .map(Integer::valueOf)
                 .sorted( Comparator.reverseOrder())
                 .collect(Collectors.toList());
     }
